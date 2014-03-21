@@ -6,19 +6,20 @@ rowsArr = createRowsArr();
 
 // Loop 512 times, once for each possible grid
 for (var i = 0; i < 512; i++) {
-    var curIndexToString = i.toString();
-    //var curGrid = [];
+    var curIndexToString = i.toString(),
+        curIndexSplit = [],
+        curRow = 0,
+        curGrid = [];
+
+    curIndexToString = padToThree(curIndexToString);
+    console.log(curIndexToString);
     curIndexSplit = curIndexToString.split('');
-    console.log(curIndexSplit);
 
     // Inner loop 3 times
-    for (var i = 0; i < 3; i++) {
-
-        // create a row three times, unshifting the inner array
-        x = createRows();
-        
+    for (var j = 0; j < 3; j++) {
+        curRow = parseInt(curIndexSplit[j], 2);
     }
-    
+    grids.push(curGrid);
 }
 
 // Create an array of all possible rows 000-111
@@ -36,6 +37,11 @@ function createRowsArr() {
 // Convert to 3-digit binary
 function convertToBinary(digit) {
     var num = digit.toString(2);
+    return padToThree(num);
+}
+
+// Pad to length of 3
+function padToThree(num) {
     while (num.length < 3) num = "0" + num;
     return num;
 }
