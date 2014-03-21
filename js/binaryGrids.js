@@ -4,20 +4,25 @@ var grids = [];
 // Holds array of every possible row, indexed rowsArr[0] to rowsArr[7]
 rowsArr = createRowsArr();
 
+var curIndexToString,
+    curIndexSplit,
+    curRow,
+    curGrid;
+
 // Loop 512 times, once for each possible grid
 for (var i = 0; i < 512; i++) {
-    var curIndexToString = i.toString(),
-        curIndexSplit = [],
-        curRow = 0,
-        curGrid = [];
+    curOuterIndexToString = i;
+    curRow = 0;
+    curGrid = [];
 
-    curIndexToString = padToThree(curIndexToString);
-    console.log(curIndexToString);
-    curIndexSplit = curIndexToString.split('');
+    curOuterIndexToString = padToThree(curIndexToString);
+    curIndexSplit = curOuterIndexToString.split('');
 
     // Inner loop 3 times
     for (var j = 0; j < 3; j++) {
-        curRow = parseInt(curIndexSplit[j], 2);
+        curRow = convertToBinary(curIndexSplit[j]);
+        console.log(curRow);
+        curGrid.push(curRow);
     }
     grids.push(curGrid);
 }
