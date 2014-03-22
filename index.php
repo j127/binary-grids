@@ -6,7 +6,6 @@
     float:left;
     font-family: "Courier New", monospace;
     margin: 19px;
-    border: 1px solid #666;
     padding: 9px;
 }
 </style>
