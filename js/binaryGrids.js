@@ -24,22 +24,24 @@ for (var i = 0; i < 512; i++) {
     // Send i to padToThree function and get back a zero-padded, len-3 string
     outerIndex = padToThree(i);
     curSplitOuterIndex = outerIndex.split('');
-    //console.log('curSplitOuterIndex is: ' + curSplitOuterIndex);
 
     // Inner loop 3 times
-    //y = 0;
     for (var j = 0; j < 3; j++) {
         // Convert back to integer
         y = parseInt(curSplitOuterIndex[j], 10);
         curRow = rowsArr[y];
-        //console.log(y.length);
-        //console.log('Row - y is: ' + y);
-        console.log(curRow);
         curGrid.push(curRow);
     }
     grids.push(curGrid);
 }
 
+function compileTemplate() {
+    var source = $("#gridTemplate").html();
+    var template = Handlebars.compile(source);
+    var context = {title: "My New Post", body: "This is my first post!"}
+    var html = template(context);
+    $("#target").append(html);
+}
 // Create an array of all possible rows 000-111
 function createRowsArr() {
     var rows = [],
