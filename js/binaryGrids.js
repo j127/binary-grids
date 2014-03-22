@@ -1,9 +1,9 @@
-// The array of all 512 grids
-var grids = [];
+var gridsObject = { grids: [] };
 
 // Holds array of every possible row, indexed rowsArr[0] to rowsArr[7]
 rowsArr = createRowsArr();
 
+// TODO: Clean this up
 var curIndexToString,
     curIndexSplit,
     curRow,
@@ -15,11 +15,11 @@ var curIndexToString,
     curGridIndexSplit;
 
 // Loop 512 times, once for each possible grid
-// TODO: change 10 to 512
+// TODO: this won't work because there is no 8 or 9 in binary
 for (var i = 0; i < 512; i++) {
     // Clear the current stuff
     curRow = 0;
-    curGrid = [];
+    curGrid = {};
 
     // Send i to padToThree function and get back a zero-padded, len-3 string
     outerIndex = padToThree(i);
@@ -30,17 +30,33 @@ for (var i = 0; i < 512; i++) {
         // Convert back to integer
         y = parseInt(curSplitOuterIndex[j], 10);
         curRow = rowsArr[y];
-        curGrid.push(curRow);
+        rowName = nameTheRow(j);
+        curGrid[rowName] = curRow;
     }
-    grids.push(curGrid);
+    gridsObject.grids.push(curGrid);
 }
 
+function nameTheRow(row) {
+    var rowName;
+    switch(row) {
+        case 0:
+            rowName = "rowOne";
+            break;
+        case 1:
+            rowName = "rowTwo";
+            break;
+        case 2:
+            rowName = "rowThree";
+            break;
+    }
+    return rowName;
+}
 function compileTemplate() {
     var source = $("#gridTemplate").html();
     var template = Handlebars.compile(source);
-    var context = {title: "My New Post", body: "This is my first post!"}
+    var context = gridsObject;
     var html = template(context);
-    $("#target").append(html);
+    $("#gridOutput").append(html);
 }
 // Create an array of all possible rows 000-111
 function createRowsArr() {
@@ -66,3 +82,5 @@ function padToThree(num) {
     while (theNum.length < 3) theNum = "0" + theNum;
     return theNum;
 }
+
+compileTemplate();
