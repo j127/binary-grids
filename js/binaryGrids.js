@@ -11,16 +11,19 @@ var curIndexToString,
 
 // Loop 512 times, once for each possible grid
 for (var i = 0; i < 512; i++) {
-    curOuterIndexToString = i;
+    // Clear the current stuff
     curRow = 0;
     curGrid = [];
 
-    curOuterIndexToString = padToThree(curIndexToString);
-    curIndexSplit = curOuterIndexToString.split('');
+    outerIndex = padToThree(i);
+    stringifiedOuterIndex = outerIndex.toString();
+    curGridIndexSplit = stringifiedOuterIndex.split('');
 
     // Inner loop 3 times
     for (var j = 0; j < 3; j++) {
-        curRow = convertToBinary(curIndexSplit[j]);
+        y = parseInt(curGridIndexSplit[j], 10);
+        curRow = convertToBinary(y);
+        console.log(y.length);
         console.log(curRow);
         curGrid.push(curRow);
     }
