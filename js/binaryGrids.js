@@ -1,4 +1,5 @@
-var gridsObject = { grids: [] };
+var gridsObject = {};
+var grids = [];
 
 // Holds array of every possible row, indexed rowsArr[0] to rowsArr[7]
 var rowsArr = createRowsArr();
@@ -22,18 +23,17 @@ for (var i = 0; i < 512; i++) {
     // Convert i to zero-padded, nine-digit binary
     curBinary = padNumber(convertToBinary(i), 9);
     curBinaryInArray = curBinary.match(/.{1,3}/g); // 3-item array of the current binary
-    console.log(curBinaryInArray);
+    //console.log(curBinaryInArray);
 
     // Inner loop three times, pop three each time
     for (var j = 0; j < 3; j++) {
-        // Convert back to integer
-        //y = parseInt(curBinaryInArray[j], 10);
-        //curRow = curBinaryInArray[j];
         rowName = nameTheRow(j);
         curGrid[rowName] = curBinaryInArray[j];
     }
-    gridsObject.grids.push(curGrid);
+    grids.push(curGrid);
 }
+grids = _.shuffle(grids);
+gridsObject.grids = grids;
 
 function nameTheRow(row) {
     var rowName;
@@ -70,9 +70,9 @@ function createRowsArr() {
 }
 
 // Convert to 3-digit binary
-function convertToBinary(digit) {
-    var num = digit.toString(2);
-    return num;
+function convertToBinary(num) {
+    var output = num.toString(2);
+    return output;
 }
 
 // Pad a number with zeros to length of 3 and return as string
@@ -80,8 +80,6 @@ function padNumber(num, padLen) {
     var theNum = num.toString();
     while (theNum.length < padLen) theNum = "0" + theNum;
     return theNum;
-}
-function createGrid(num) {
 }
 
 compileTemplate();

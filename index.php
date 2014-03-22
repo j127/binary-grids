@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>3x3 Binaries</h1>
-<p>All 512 possibly 3x3 binary grids. Click the button to randomize.</p>
+<p>All 512 possibly 3x3 binary grids, randomized.</p>
 <div id="gridOutput"></div>
 
 <script id="gridTemplate" type="x-handlebars-template">
