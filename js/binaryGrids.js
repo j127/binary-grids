@@ -7,23 +7,33 @@ rowsArr = createRowsArr();
 var curIndexToString,
     curIndexSplit,
     curRow,
-    curGrid;
+    curGrid,
+    y,
+    outerIndex,
+    stringifiedOuterIndex,
+    outerIndex,
+    curGridIndexSplit;
 
 // Loop 512 times, once for each possible grid
+// TODO: change 10 to 512
 for (var i = 0; i < 512; i++) {
     // Clear the current stuff
     curRow = 0;
     curGrid = [];
 
+    // Send i to padToThree function and get back a zero-padded, len-3 string
     outerIndex = padToThree(i);
-    stringifiedOuterIndex = outerIndex.toString();
-    curGridIndexSplit = stringifiedOuterIndex.split('');
+    curSplitOuterIndex = outerIndex.split('');
+    //console.log('curSplitOuterIndex is: ' + curSplitOuterIndex);
 
     // Inner loop 3 times
+    //y = 0;
     for (var j = 0; j < 3; j++) {
-        y = parseInt(curGridIndexSplit[j], 10);
-        curRow = convertToBinary(y);
-        console.log(y.length);
+        // Convert back to integer
+        y = parseInt(curSplitOuterIndex[j], 10);
+        curRow = rowsArr[y];
+        //console.log(y.length);
+        //console.log('Row - y is: ' + y);
         console.log(curRow);
         curGrid.push(curRow);
     }
@@ -48,8 +58,9 @@ function convertToBinary(digit) {
     return padToThree(num);
 }
 
-// Pad to length of 3
+// Pad a number with zeros to length of 3 and return as string
 function padToThree(num) {
-    while (num.length < 3) num = "0" + num;
-    return num;
+    var theNum = num.toString();
+    while (theNum.length < 3) theNum = "0" + theNum;
+    return theNum;
 }
